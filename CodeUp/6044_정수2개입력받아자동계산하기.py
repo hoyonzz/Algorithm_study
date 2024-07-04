@@ -1,0 +1,7 @@
+n, x = map(int, input().split())
+print(n+x)
+print(n-x)
+print(n*x)
+print(n//x)
+print(n%x)
+print(f'{n/x:.2f}')
