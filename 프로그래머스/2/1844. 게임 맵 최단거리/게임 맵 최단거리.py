@@ -1,26 +1,21 @@
 from collections import deque
-
 def solution(maps):
-    rows = len(maps)
-    cols = len(maps[0])
-    
-    dr = [-1, 1, 0, 0]
-    dc = [0, 0, -1, 1]
-    
+    n, m = len(maps), len(maps[0])
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
     queue = deque()
     queue.append((0, 0))
     while queue:
-        r, c = queue.popleft()
-        if r == rows -1 and c == cols -1:
-            return maps[r][c]
-        
-        # 4가지 방향 확인
+        x, y = queue.popleft()
         for i in range(4):
-            nr = r + dr[i]
-            nc = c + dc[i]
-            if 0 <= nr < rows and 0 <= nc < cols:
-                if maps[nr][nc] == 1:
-                    maps[nr][nc] = maps[r][c] + 1
-                    queue.append((nr,nc))
-    return -1
-    
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                continue
+            if maps[nx][ny] == 1:
+                maps[nx][ny] = maps[x][y] + 1
+                queue.append((nx, ny))
+    if maps[n-1][m-1] == 1:
+        return -1
+    else:
+        return maps[n-1][m-1]
