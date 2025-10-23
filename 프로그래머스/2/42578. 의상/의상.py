@@ -1,9 +1,10 @@
 from collections import defaultdict
+
 def solution(clothes):
-    clothes_dict = defaultdict(int)
-    for name, type in clothes:
-        clothes_dict[type] += 1
     answer = 1
-    for count in clothes_dict.values():
-        answer *= (count+1)
+    clothes_dict = defaultdict(int)
+    for cloth, type in clothes:
+        clothes_dict[type] += 1
+    for type, count in clothes_dict.items():
+        answer *= count+1
     return answer - 1
