@@ -1,17 +1,9 @@
-from collections import deque
 def solution(numbers, target):
-    answer = 0
-    queue = deque()
-    # idx, num
-    queue.append((0, 0))
-    
-    while queue:
-        idx, num = queue.popleft()
+    def dfs(idx, sum):
         if idx == len(numbers):
-            if num == target:
-                answer += 1
-        else:
-            queue.append((idx + 1,num + numbers[idx]))
-            queue.append((idx + 1,num - numbers[idx]))
-
-    return answer
+            if sum == target:
+                return 1
+            else:
+                return 0
+        return dfs(idx+1, sum+numbers[idx]) + dfs(idx+1, sum-numbers[idx])
+    return dfs(0,0)
