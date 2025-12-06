@@ -1,12 +1,9 @@
 import sys
 input = sys.stdin.readline
 
-arr = [0] + [1]*30
-
+arr = {i for i in range(1, 31)}
+check = set()
 for _ in range(28):
-    n = int(input())
-    arr[n] = 0
-    
-for i in range(1, 31):
-    if arr[i] == 1:
-        print(i)
+    check.add(int(input()))
+
+print(*sorted(arr-check), sep='\n')
