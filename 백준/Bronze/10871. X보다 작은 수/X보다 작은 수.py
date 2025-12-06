@@ -1,10 +1,10 @@
 n, x = map(int, input().split())
 arr = list(map(int, input().split()))
-answer = []
+result = []
 
 for i in range(n):
     if arr[i] < x:
-        answer.append(arr[i])
+        result.append(arr[i])
 
-for i in answer:
+for i in result:
     print(i, end=' ')
