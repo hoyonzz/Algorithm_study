@@ -1,9 +1,18 @@
+import sys
+
+input = sys.stdin.readline
+
 n = int(input())
 arr = list(map(int, input().split()))
+
 arr.sort()
-S= []
-tmp = 0
-for i in range(n):
-    tmp += arr[i]
-    S.append(tmp)
-print(sum(S))
+result = [arr[0]]
+
+
+for i in range(1, n):
+    result.append(result[i-1]+arr[i])
+    
+print(sum(result))
+    
+
+    
