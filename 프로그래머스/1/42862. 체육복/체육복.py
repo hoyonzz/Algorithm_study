@@ -1,32 +1,14 @@
 def solution(n, lost, reserve):
-    answer = [0] * n
-    for i in lost:
-        answer[i-1] -= 1
-    for i in reserve:
-        answer[i-1] += 1
+    set_lost = set(lost) - set(reserve)
+    set_reserve = set(reserve) - set(lost)
+    answer = n - len(set_lost)
     
-    for i in range(n):
-        if answer[i] >= 0:
-            pass
-        else:
-            if i == 0:
-                if answer[i+1] > 0:
-                    answer[i+1] -= 1
-                    answer[i] += 1
-            elif i == (n-1):
-                if answer[i-1] > 0:
-                    answer[i-1] -= 1
-                    answer[i] +=1
-            else:
-                if answer[i-1] > 0:
-                    answer[i-1] -= 1
-                    answer[i] += 1
-                elif answer[i+1] > 0:
-                    answer[i+1] -= 1
-                    answer[i] += 1
-    cnt = 0
-    for i in answer:
-        if i >= 0:
-            cnt += 1
-                    
-    return cnt
+    for i in range(1, n+1):
+        if i in set_reserve:
+            if i-1 in set_lost:
+                set_lost.remove(i-1)
+                answer += 1
+            elif i+1 in set_lost:
+                set_lost.remove(i+1)
+                answer += 1
+    return answer
