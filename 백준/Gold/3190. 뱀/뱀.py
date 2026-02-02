@@ -18,7 +18,7 @@ for _ in range(l):
 result = 0
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
-d = 1
+d = 0
 snake = deque([(0, 0)])
 x, y = 0, 0
 board[0][0] = 1
@@ -26,8 +26,8 @@ board[0][0] = 1
 while True:
     result += 1
     
-    nx = x + dx[(d-1)%4]
-    ny = y + dy[(d-1)%4]
+    nx = x + dx[d]
+    ny = y + dy[d]
     
     if not(0<=nx<n and 0<=ny<n) or board[nx][ny] == 1:
         break
@@ -47,9 +47,9 @@ while True:
     
     if result in move_plans:
         if move_plans[result] == 'D':
-            d += 1
+            d = (d+1)%4
         else:
-            d -= 1
+            d = (d-1)%4
             
 print(result)
         
