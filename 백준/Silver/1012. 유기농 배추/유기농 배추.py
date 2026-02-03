@@ -1,40 +1,33 @@
-from collections import deque
+import sys
+
+input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 
 t = int(input())
-
-
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
-def BFS(x, y):
-    queue = deque([(x, y)])
+def dfs(x, y):
     visited[x][y] = True
-    while queue:
-        x, y = queue.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if nx < 0 or ny < 0 or nx >= n or ny >= m:
-                continue
-            if not visited[nx][ny] and graph[nx][ny] == 1:
-                queue.append((nx, ny))
-                visited[nx][ny] = True
-    
-
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < n and 0 <= ny < m:
+            if not visited[nx][ny] and board[nx][ny] ==1 :
+                dfs(nx, ny)
 for _ in range(t):
     m, n, k = map(int, input().split())
-    graph = [[0] * m for _ in range(n)]
+    board = [[0] * m for _ in range(n)]
     visited = [[False] * m for _ in range(n)]
-    count = 0
+    result = 0
     for _ in range(k):
-        x, y = map(int, input().split())
-        graph[y][x] = 1
-    
+        y, x = map(int, input().split())
+        board[x][y] = 1
+        
     for i in range(n):
         for j in range(m):
-            if not visited[i][j] and graph[i][j]:
-                BFS(i, j)
-                count += 1
+            if not visited[i][j] and board[i][j] == 1:
+                dfs(i, j)
+                result += 1
                 
-    print(count)
-    
+    print(result)
