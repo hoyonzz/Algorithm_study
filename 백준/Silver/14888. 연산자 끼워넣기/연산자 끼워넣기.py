@@ -1,35 +1,29 @@
 import sys
-
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
 
 n = int(input())
 nums = list(map(int, input().split()))
-plus, minus, multiply, devide = map(int, input().split())
+plus, minus, mul, div = map(int, input().split())
 
-total = nums[0]
-max_value, min_value = -int(1e9), int(1e9)
+max_value = float('-inf')
+min_value = float('inf')
 
-def backtracking(idx, total, plus, minus, multiply, devide):
+def backtracking(depth, total, plus, minus, mul, div):
     global max_value, min_value
-    if idx == n:
+    if depth == n:
         max_value = max(max_value, total)
         min_value = min(min_value, total)
         return
-    
     if plus > 0:
-        backtracking(idx+1, total+nums[idx], plus-1, minus, multiply, devide)
-
+        backtracking(depth + 1, total + nums[depth], plus - 1, minus, mul, div)
     if minus > 0:
-        backtracking(idx+1, total-nums[idx], plus, minus-1, multiply, devide)
-    
-    if multiply > 0:
-        backtracking(idx+1, total*nums[idx], plus, minus, multiply-1, devide)
+        backtracking(depth + 1, total - nums[depth], plus, minus - 1, mul, div)
+    if mul > 0:
+        backtracking(depth + 1, total * nums[depth], plus, minus, mul - 1, div)
+    if div > 0:
+        backtracking(depth + 1, int(total / nums[depth]), plus, minus, mul, div - 1)
 
-    if devide > 0:
-        backtracking(idx+1, int(total / nums[idx]), plus, minus, multiply, devide-1)
+backtracking(1, nums[0], plus, minus, mul, div)
 
-    
-backtracking(1, total, plus, minus, multiply, devide)
 print(max_value)
 print(min_value)
