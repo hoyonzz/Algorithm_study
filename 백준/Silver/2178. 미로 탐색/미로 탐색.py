@@ -6,6 +6,7 @@ from collections import deque
 
 n, m = map(int, input().split())
 board = []
+
 for _ in range(n):
     row = list(map(int, input().strip()))
     board.append(row)
@@ -14,7 +15,8 @@ dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
 def bfs(x, y):
-    queue = deque([(x, y)])
+    queue = deque()
+    queue.append((x, y))
     while queue:
         x, y = queue.popleft()
         for i in range(4):
