@@ -1,41 +1,40 @@
 import sys
-
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-chicken_houses = []
 houses = []
-selected = []
-result = float('inf')
+chicken_houses = []
+selected_houses = []
+
+n, m = map(int, input().split())
 
 for i in range(n):
     row = list(map(int, input().split()))
-    for j in range(n):
+    for j in range(len(row)):
+        if row[j] == 1:
+            houses.append((i, j))
         if row[j] == 2:
-            chicken_houses.append((i+1, j+1))
-        elif row[j] == 1:
-            houses.append((i+1, j+1))
+            chicken_houses.append((i, j))
 
-def backtracking(count, idx):
-    global result
-    if count == m:
-        result = min(result, get_chicken_dist())
+
+answer = float('inf')
+
+def backtracking(idx):
+    global answer
+    if len(selected_houses) == m:
+        chicken_distance = 0
+        for r1, c1 in houses:
+            distance = float('inf')
+            for r2, c2 in selected_houses:
+                distance = min(distance, (abs(r1-r2) + abs(c1-c2)))
+            chicken_distance += distance
+        answer = min(answer, chicken_distance)
         return
-
+    
     for i in range(idx, len(chicken_houses)):
-        selected.append(chicken_houses[i])
-        backtracking(count+1, i+1)
-        selected.pop()
+        selected_houses.append(chicken_houses[i])
+        backtracking(i + 1)
+        selected_houses.pop()
 
-def get_chicken_dist():
-    total_dist = 0
-    for hr, hc in houses:
-        min_dist = float('inf')
-        for cr, cc in selected:
-            dist = abs(hr-cr) + abs(hc-cc)
-            min_dist = min(min_dist, dist)
-        total_dist += min_dist
-    return total_dist
+backtracking(0)
 
-backtracking(0, 0)
-print(result)
+print(answer)
