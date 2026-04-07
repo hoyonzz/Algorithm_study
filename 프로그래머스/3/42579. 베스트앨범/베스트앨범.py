@@ -1,16 +1,19 @@
 from collections import defaultdict
 def solution(genres, plays):
+    sum_genres = defaultdict(int)
+    musics = defaultdict(list)
     answer = []
-    music = defaultdict(list)
     for i in range(len(genres)):
-        music[genres[i]].append([i, plays[i]])
-    sorted_music=sorted(music.items(), reverse=True, key=lambda x:sum(song[1] for song in x[1]))
-    result = []
-    
-    for genre, song in sorted_music:
-        select_song=sorted(song, key=lambda x:(-x[1],x[0]))
-        for i in range(len(select_song)):
-            if i > 1: continue
-            result.append(select_song[i][0])
-    
-    return result
+        sum_genres[genres[i]] += plays[i]
+        musics[genres[i]].append((plays[i], i))
+    # 장르별 내림차순 정렬
+    sum_genres = sorted(sum_genres.items(), key=lambda x:x[1], reverse=True)
+    # 순회하며 정렬, 두곡씩 정답 저장
+    for genre, total in sum_genres:    
+        music = sorted(musics[genre], key=lambda x: (
+            -x[0],
+            x[1]
+        ))
+        for play, i in music[:2]:
+            answer.append(i)
+    return answer
