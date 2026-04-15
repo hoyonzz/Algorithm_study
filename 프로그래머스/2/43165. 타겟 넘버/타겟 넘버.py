@@ -1,9 +1,15 @@
 def solution(numbers, target):
-    def dfs(idx, sum):
+    answer = 0
+    # 백트레킹 함수 구현
+    def backtracking(idx, total):
+        nonlocal answer
+        # 종료조건: idx가 numbers 개수 일 때,
         if idx == len(numbers):
-            if sum == target:
-                return 1
-            else:
-                return 0
-        return dfs(idx+1, sum+numbers[idx]) + dfs(idx+1, sum-numbers[idx])
-    return dfs(0,0)
+            if total == target:
+                answer += 1
+            return
+        backtracking(idx + 1, total+numbers[idx])
+        backtracking(idx + 1, total-numbers[idx])
+    backtracking(0, 0)
+
+    return answer
