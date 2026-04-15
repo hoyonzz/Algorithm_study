@@ -1,18 +1,20 @@
+from collections import defaultdict
+
+def cal_days(num):
+    y, m, d = map(int, num.split('.'))
+    total = (y*12*28) + (m*28) + d
+    return total
+
 def solution(today, terms, privacies):
     answer = []
-    terms_dic = {}
-    for i in range(len(terms)):
-        key, value = terms[i].split()
-        terms_dic[key] = int(value)
-    
-    today_year, today_month, today_day = map(int, today.split('.'))
-    today_days = (((today_year * 12) + today_month) * 28) + today_day
-    
-    for idx, privacy in enumerate(privacies):
-        privacy_date, privacy_term = privacy.split()
-        privacy_year, privacy_month, privacy_day = map(int, privacy_date.split('.'))
-        privacy_days = ((privacy_year * 12) + privacy_month + terms_dic[privacy_term])* 28 + privacy_day
-        # 오늘 날짜가 유효기간이 지났다면,
-        if today_days >= privacy_days:
-            answer.append(idx + 1)
+    dict_terms = defaultdict(int)
+    for term in terms:
+        t, m = term.split(' ')
+        dict_terms[t] = int(m) * 28
+    for idx, privacie in enumerate(privacies):
+        days, term = privacie.split(' ')
+        if cal_days(today) >= cal_days(days) + dict_terms[term]:
+            answer.append(idx+1)
+        
     return answer
+
