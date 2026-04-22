@@ -1,20 +1,24 @@
 def solution(name):
-    updown_move = 0
-    for i, char in enumerate(name):
-        if char != 'A':
-            updown_move += min((ord(char)-ord('A')), (ord('Z')-ord(char)+1))
+    answer = 0
+    min_move = len(name) - 1
     
-    min_move = len(name)-1
-
-    for i, char in enumerate(name):
-        next_idx = i+1
-        while next_idx < len(name) and name[next_idx] == 'A':
-            next_idx += 1
+    for i in range(len(name)):
+        # 상하 조작
+        answer += min(
+            (ord(name[i]) - ord('A')),
+            (ord('Z') - ord(name[i]) + 1)
+        )
         
-        move_a = i*2 + len(name)-next_idx
-        move_b = (len(name)-next_idx)*2 + i
-        min_move = min(min_move, move_a, move_b)
-    
-    return updown_move + min_move
-                               
-    
+        next_i = i+1
+        while next_i < len(name) and name[next_i] == 'A':
+            next_i += 1
+            
+        # 좌우 조작
+        min_move = min(
+            min_move,
+            ((2*i) + len(name) - next_i),
+            (2*(len(name)-next_i) + i)
+        )
+        
+    answer += min_move
+    return answer
