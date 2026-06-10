@@ -1,24 +1,17 @@
 def solution(name):
-    answer = 0
-    min_move = len(name) - 1
-    
-    for i in range(len(name)):
-        # 상하 조작
-        answer += min(
-            (ord(name[i]) - ord('A')),
-            (ord('Z') - ord(name[i]) + 1)
-        )
+    n = len(name)
+    up_down_move = 0
+    # 상하이동거리계산
+    for c in name:
+        up_down_move += min(ord(c) - ord('A'), ord('Z') - ord(c) + 1)
         
-        next_i = i+1
-        while next_i < len(name) and name[next_i] == 'A':
-            next_i += 1
+    # 좌우 이동거리계산
+    min_move = n-1
+    for i in range(n):
+        next_idx = i + 1
+        while next_idx < n and name[next_idx] == 'A':
+            next_idx += 1
             
-        # 좌우 조작
-        min_move = min(
-            min_move,
-            ((2*i) + len(name) - next_i),
-            (2*(len(name)-next_i) + i)
-        )
-        
-    answer += min_move
-    return answer
+        min_move = min(min_move, 2*i+n-next_idx,2*(n-next_idx)+i)
+
+    return min_move + up_down_move
