@@ -8,7 +8,8 @@ def solution(number, k):
         stack.append(num)
         
     answer = ''.join(stack)
+    
     if k > 0:
-        answer = answer[:len(number)-k]
+        answer = answer[:len(answer)-k]
     
     return answer
