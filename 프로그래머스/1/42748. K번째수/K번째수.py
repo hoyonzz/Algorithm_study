@@ -1,7 +1,6 @@
 def solution(array, commands):
     answer = []
-    for com in commands:
-        i, j, k = com[0], com[1], com[2]
+    for i, j, k in commands:
         arr = array[i-1:j]
         arr.sort()
         answer.append(arr[k-1])
