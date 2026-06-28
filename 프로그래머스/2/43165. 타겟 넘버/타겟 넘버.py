@@ -1,13 +1,13 @@
 def solution(numbers, target):
     answer = 0
-    # 백트레킹 함수 정의
-    def backtracking(value, idx):
+    def dfs(idx, result):
         nonlocal answer
         if idx == len(numbers):
-            if value == target:
+            if result == target:
                 answer += 1
             return
-        backtracking(value + numbers[idx], idx + 1)
-        backtracking(value - numbers[idx], idx + 1)
-    backtracking(0, 0)    
+        dfs(idx+1, result + numbers[idx])
+        dfs(idx+1, result - numbers[idx])
+
+    dfs(0, 0)
     return answer
