@@ -1,26 +1,25 @@
 def solution(distance, rocks, n):
     rocks.sort()
-    start, end = 0, distance
-    
-    while start <= end:
-        mid = (start+end) // 2
-        removed_count = 0
+    s = 1
+    e = distance
+
+    while s <= e:
+        mid = (s + e) // 2
+        count = 0
         point = 0
-        
         for rock in rocks:
-            if rock-point >= mid:
-                point = rock
+            if rock-point < mid:
+                count += 1
             else:
-                removed_count += 1
+                point = rock
         
-        if distance - point < mid:
-            removed_count += 1
+        if distance-point < mid:
+            count += 1
         
-        if removed_count <= n:
+        if count <= n:
             answer = mid
-            start = mid + 1
-            
+            s = mid + 1
         else:
-            end = mid - 1
+            e = mid - 1
             
     return answer
