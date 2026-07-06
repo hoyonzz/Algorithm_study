@@ -1,29 +1,30 @@
 def solution(begin, target, words):
-    def check_words(a, b):
-        check = 0
+    if target not in words:
+        return 0
+    
+    def check_word(a, b):
+        count = 0
         for i in range(len(a)):
             if a[i] != b[i]:
-                check += 1
-        if check == 1:
+                count += 1
+            if count > 1:
+                break
+        if count == 1:
             return True
         return False
     
-    visited = [False] * len(words)
-    answer = 0
-    
-    from collections import deque
-    def bfs(start, count):
+    def bfs(word, count):
+        from collections import deque
         queue = deque()
-        queue.append((start, 0))
+        queue.append((word, count))
         while queue:
-            word, count = queue.popleft()
-            if word == target:
+            a, count = queue.popleft()
+            if a == target:
                 return count
-            for i in range(len(words)):
-                if not visited[i] and check_words(word, words[i]):
-                    queue.append((words[i], count + 1))
-                    visited[i] = True
-    answer = bfs(begin, 0)
-    if target not in words:
-        return 0
-    return answer
+            for b in words:
+                if check_word(a, b):
+                    queue.append((b, count + 1))
+
+
+    
+    return bfs(begin, 0)
