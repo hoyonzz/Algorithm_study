@@ -1,18 +1,16 @@
 def solution(n, times):
-    start = 0
-    end = max(times) * n
+    s = 1
+    e = max(times) * n
     
-    while start <= end:
+    while s <= e:
+        mid = (s+e) // 2
         result = 0
-        mid = (start+end) // 2
-        
-        for i in times:
-            result += (mid // i)
-        
+        for t in times:
+            result += mid // t
         if result >= n:
             answer = mid
-            end = mid -1
+            e = mid - 1
         else:
-            start = mid + 1
-    
+            s = mid + 1
+
     return answer
