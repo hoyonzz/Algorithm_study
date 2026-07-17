@@ -1,7 +1,5 @@
 def solution(numbers):
-    arr = [str(x) for x in numbers]
-    arr.sort(reverse=True, key=lambda x: x*3)
-    if arr[0] == '0':
+    numbers.sort(key = lambda x:str(x)*3, reverse=True)
+    if numbers[0] == 0:
         return '0'
-    answer = ''.join(arr)
-    return answer
+    return ''.join([str(x) for x in numbers])
