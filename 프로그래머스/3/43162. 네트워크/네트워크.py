@@ -1,16 +1,11 @@
 def solution(n, computers):
     answer = 0
     visited = [False] * n
-    
     def dfs(v):
         visited[v] = True
-        for i in range(n):
-            if i == v:
-                continue
-            computer = computers[v]
-            if computer[i] == 1 and not visited[i]:
+        for i in range(len(computers[v])):
+            if not visited[i] and computers[v][i] == 1:
                 dfs(i)
-        
     for i in range(n):
         if not visited[i]:
             dfs(i)
