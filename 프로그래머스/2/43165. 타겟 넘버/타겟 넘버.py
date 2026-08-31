@@ -1,13 +1,12 @@
 def solution(numbers, target):
-    answer = 0
-    def dfs(idx, result):
+    def dfs(value, idx):
         nonlocal answer
         if idx == len(numbers):
-            if result == target:
+            if value == target:
                 answer += 1
             return
-        dfs(idx+1, result+numbers[idx])
-        dfs(idx+1, result-numbers[idx])
-        
+        dfs(value + numbers[idx], idx + 1)
+        dfs(value - numbers[idx], idx + 1)
+    answer = 0
     dfs(0, 0)
     return answer
