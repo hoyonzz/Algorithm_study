@@ -1,6 +1,6 @@
 def solution(people, limit):
+    s, e = 0, len(people) - 1
     people.sort()
-    s, e = 0, len(people)-1
     answer = 0
     while s <= e:
         if people[s] + people[e] > limit:
@@ -10,5 +10,4 @@ def solution(people, limit):
             s += 1
             e -= 1
             answer += 1
-        
     return answer
