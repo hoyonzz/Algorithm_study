@@ -1,17 +1,13 @@
 def solution(s):
-    if len(s) % 2 != 0 or s[0] == ')':
-        return False
-    
-    count = 0
-    
-    for c in s:
-        if c == '(':
-            count += 1
-        else:
-            count -= 1
-        if count < 0:
+    result = 0
+    for i in range(len(s)):
+        if s[i] == '(':
+            result += 1
+        elif s[i] == ')':
+            result -= 1
+        if result < 0:
             return False
-    if count == 0:
+    if result == 0:
         return True
     else:
         return False
