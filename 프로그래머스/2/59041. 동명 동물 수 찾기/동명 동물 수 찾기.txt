@@ -1,0 +1,8 @@
+-- 코드를 입력하세요
+-- 이름이 두번쓰인 이름과 쓰인 횟수, 이름이 없는동물은 제외, 이름순정렬
+SELECT NAME, COUNT(NAME) AS COUNT
+FROM ANIMAL_INS
+WHERE NAME IS NOT NULL
+GROUP BY NAME
+HAVING COUNT >= 2
+ORDER BY NAME;
