@@ -1,7 +1,7 @@
 def solution(array, commands):
     answer = []
     for i, j, k in commands:
-        arr = array[i-1:j]
-        arr.sort()
+        arr = sorted(array[i-1:j])
         answer.append(arr[k-1])
+        print(arr)
     return answer
