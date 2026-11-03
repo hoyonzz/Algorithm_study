@@ -1,15 +1,17 @@
-from collections import deque
+import math
 def solution(progresses, speeds):
-    q = deque([p, s] for p, s in zip(progresses, speeds))
+    jobs = []
+    for i in range(len(progresses)):
+        jobs.append(math.ceil((100-progresses[i])/speeds[i]))
+    s = jobs[0]
+    count = 1
     answer = []
-    while q:
-        for job in q:
-            job[0] += job[1]
-        count = 0
-        while q and q[0][0] >= 100:
-            q.popleft()
-            count += 1
-        if count >= 1:
+    for j in jobs[1:]:
+        if s >= j:
+            count+= 1
+        else:
             answer.append(count)
-            
+            count = 1
+            s = j
+    answer.append(count)
     return answer
