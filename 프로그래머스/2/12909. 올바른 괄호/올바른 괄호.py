@@ -1,14 +1,13 @@
 def solution(s):
-    answer = 0
+    stack = []
     for c in s:
         if c == '(':
-            answer += 1
+            stack.append(c)
         else:
-            answer -= 1
-        if answer < 0:
-            return False
-
-    if answer == 0:
-        return True
-    else:
+            if stack and stack[-1] == '(':
+                stack.pop()
+            else:
+                return False
+    if stack:
         return False
+    return True
