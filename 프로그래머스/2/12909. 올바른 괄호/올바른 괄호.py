@@ -1,14 +1,14 @@
 def solution(s):
-    stack = []
-    for i in range(len(s)):
-        if s[i] == '(':
-            stack.append(s[i])
-        elif s[i] == ')':
-            if stack:
-                stack.pop()
-            else:
-                return False
-    if not stack:
+    answer = 0
+    for c in s:
+        if c == '(':
+            answer += 1
+        else:
+            answer -= 1
+        if answer < 0:
+            return False
+
+    if answer == 0:
         return True
     else:
         return False
